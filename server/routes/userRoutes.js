@@ -8,5 +8,5 @@ import { forgotPassword,addQueries,getProducts } from "../controllers/userContro
 router.route("/login").post(login)
 router.route("/signup").post(createUser);
 router.route("/addQueries").put(addQueries);
-router.route('/getProducts').get(getProducts);
+// router.route('/getProducts').get(getProducts);
 export default router;

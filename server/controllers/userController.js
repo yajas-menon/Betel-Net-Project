@@ -78,14 +78,14 @@ export const createUser = bigPromise(async(req,res,next)=>{
 
    })
 
-   export const getProducts=bigPromise(async(req,res,next) =>{
-    const products=Products.find();
-    return res.status(200).json({
-        success:true,
-        message:"Successfully Sent the products Details",
-        data:products
-    });
-   })   
+//    export const getProducts=bigPromise(async(req,res,next) =>{
+//     const products=Products.find();
+//     return res.status(200).json({
+//         success:true,
+//         message:"Successfully Sent the products Details",
+//         data:products
+//     });
+//    })   
 
 
 
