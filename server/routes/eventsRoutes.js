@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     },
   });
   const upload = multer({ storage: storage });
-router.route("/createEvent").post(upload.single("img"),createEvent)
+router.route("/createEvent").post(createEvent)
 router.route("/getEvent").get(getEvent);
 router.route("/deleteEvent/:id").delete(deleteEvent);
 router.route("/updateEvent/:id").put(updateEvent);

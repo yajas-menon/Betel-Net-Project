@@ -7,12 +7,7 @@ import crypto from "crypto";
 
 const userSchema=new mongoose.Schema({
     
-    firstname:{
-        type:String,
-        required:true,
-        maxlength:[40,'Name should be under 40 characters.']
-    },
-    lastname:{
+    name:{
         type:String,
         required:true,
         maxlength:[40,'Name should be under 40 characters.']
@@ -36,6 +31,11 @@ const userSchema=new mongoose.Schema({
         }],
         default: ['user']
     },
+    reviews:[
+        {
+            type:String,
+        }
+    ],
     forgotPasswordToken:String,
     forgotPasswordExpiry:Date
 },

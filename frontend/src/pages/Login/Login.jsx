@@ -1,113 +1,152 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import "./Login.css"
-import email_icon from "../../assets/icons/email.png"
-import pass_icon from "../../assets/icons/password.png"
 import TextNIcon from '../../components/TextNIcon/TextNIcon'
 import { ROUTES } from '../../routes/RouterConfig'
 import axios from "axios"
-import { useNavigate } from "react-router-dom";
-const styles = {
-    body: "login__body flex items-center justify-center h-screen bg-hero bg-no-repeat bg-cover bg-right-top bg-fixed font-openSans",
-    login__container: "login__container flex flex-col items-center justify-around py-[60px] border-0 border-black px-[30px] bg-white rounded-[8px] shadow-login_shadow m-2 w-[35%] max-w-[420px]",
-    login__title: "login__title text-left w-full",
-    login__title_h1: "login__title--h1 text-5xl pb-0 font-bold",
-    login__form: "login__form w-full pt-[60px]",
-    RemFor_container: "flex justify-between items-center mt-[30px]",
-    checkbox__container: "checkbox__container flex items-center",
-    checkbox__box: "accent-font_orange",
-    checkbox__label: "ml-1 checkbox__label",
-    forgotPass__conatiner: "ml-auto",
-    forgotPass__link: "forgotPass__link hover:underline hover:decoration-solid ",
-    login__button: "login__button text-center w-full text-2xl font-semibold block mt-[30px] rounded-[8px] border-font_orange py-[10px] text-center bg-font_orange text-white transition-colors hover:bg-font_orange-hover hover:ease-in",
-    signUp__container: "flex mt-[40px]",
-    signUp__text: "",
-    signup__link: "login__signup pl-2 font-semibold hover:underline hover:decoration-solid"
-}
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
+    const [login,setLogin] = useState(false);
+    const [signup,setSignup] = useState(false);
+    const [loginerr,setLoginerr]=useState();
+    const [signerr,setSignerr]=useState();
+    const  [initialValues,setFormValues] = useState({  uname1: "",uemail1: "", upass1: "" });
+    const [inputs,setInputs]=useState({
+        uemail:"",
+        upass:""
+      });
 
-    const [loginForm, setLoginForm] = useState({
-        email : "",
-        password : "",
-        rememberMe : false
-    })
-    
     const handleSubmit = async (event) => {
         event.preventDefault()
-        console.log(loginForm)
-
-        await axios.post('http://localhost:8080/api/login', {
-      email:loginForm.email,
-      password:loginForm.password
-    }).then(res =>{
-      console.log(res);
-      console.log(res.data);
-        navigate("/");
-    }).catch(err=>{
-     alert(err);
-    })
+        await axios.post('http://localhost:8080/api/user/login', {
+            email: inputs.uemail,
+            password: inputs.upass
+        }).then(res => {
+            console.log(res);
+            console.log(res.data);
+            setLogin(true);
+            navigate("/Dashboard");
+        }).catch(err => {
+            console.log(err.response.data.message);
+            setLoginerr(err.response.data.message);
+            console.log(loginerr);
+        })
     }
 
-    const handleChange = (event) =>{
-        const {name, value , type , checked} = event.target
-
-        setLoginForm(prevState =>{
-            
-            return{
-                ...prevState,
-                [name] : type==="checkbox" ? checked : value
-            }
-        })
+    const handleSubmit1 = async (event) => {
+        event.preventDefault()
+       await axios.post('http://localhost:8080/api/user/signup',{
+        name:initialValues.uname1,
+        email:initialValues.uemail1,
+        password:initialValues.upass1,
+        }).then( res => {
+        console.log(res);
+        console.log(res.data);
+        setSignup(true);
+        if(initialValues.uemail1=='admin@gmail.com'){
+            localStorage.setItem('login',true);
+        }
+        else{
+            localStorage.setItem('login',false);
+        }
+        navigate("/Dashboard");
+        }).catch(err =>{
+            console.log(err.response.data.message);
+            setSignerr(err.response.data.message);
+        });
+    }
+    
+    const yajas1=(e)=>{
+        e.preventDefault();
+        const newdata ={...inputs};
+        newdata[e.target.name]=e.target.value;
+        setInputs(newdata);
+        console.log(inputs);
     };
 
-
+    const yajas=(e)=>{
+        e.preventDefault();
+        console.log("hello")
+        const newdata ={...initialValues};
+        newdata[e.target.name]=e.target.value;
+        setFormValues(newdata);
+        console.log(initialValues);
+    }
     return (
-        <div className={styles.body}>
-            <div className={styles.login__container}>
-                <div className={styles.login__title}>
-                    <h1 className={styles.login__title_h1}>Log In</h1>
+        <div className='hii'>
+            <ul className="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
+                        aria-controls="pills-login" aria-selected="true">Login</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab"
+                        aria-controls="pills-register" aria-selected="false">Register</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                    <form>
+
+                        <div class="form-outline mb-4">
+                            <input type="email" name='uemail' class="form-control" onChange={(e)=>yajas1(e)}/>
+                            <label class="form-label" for="loginName" >Email or username</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="password" name='upass' class="form-control" onChange={(e)=>yajas1(e)}/>
+                            <label class="form-label" for="loginPassword" >Password</label>
+                        </div>
+                        <p style={{color:"red",textAlign:"center"}}>{loginerr}</p>
+                        <div class="row mb-4">
+                            <div class="col-md-6 d-flex justify-content-center">
+
+                                <div class="form-check mb-3 mb-md-0">
+                                    <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked  />
+                                    <label class="form-check-label" for="loginCheck"> Remember me </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 d-flex justify-content-center">
+                                <a href="#!">Forgot password?</a>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary text-dark btn-block mb-4" onClick={(event) => handleSubmit(event)}>Sign in</button>
+                        <div class="text-center">
+                            <p className='text-primary'>Not a member? Register</p>
+                        </div>
+                    </form>
                 </div>
-                <form onSubmit={handleSubmit} className={styles.login__form}>
-
-                    <TextNIcon
-                        icon={email_icon}
-                        type="email"
-                        placeholder="Email address" 
-                        name = "email"
-                        value = {loginForm.email}
-                        changehandler = {handleChange}
-                    />
-                    <TextNIcon
-                        icon={pass_icon}
-                        type="password"
-                        placeholder="Password"
-                        name = "password"
-                        value = {loginForm.password}
-                        changehandler = {handleChange}
-                    />
-
-                    <div className={styles.RemFor_container}>
-                        <div className={styles.checkbox__container}>
-                            <input type="checkbox" 
-                                    id='rememberMe' className={styles.checkbox__box} 
-                                    name = "rememberMe"
-                                    onChange={handleChange}
-                                    checked = {loginForm.rememberMe}
-
-                            />
-                            <label htmlFor="rememberMe" className={styles.checkbox__label}>Remember Me</label>
+                <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                    <form>
+                        <div class="form-outline mb-4">
+                            <input type="text" name='uname1' class="form-control" onChange={(event) => yajas(event)}/>
+                            <label class="form-label" for="registerName">Name</label>
                         </div>
-                        <div className={styles.forgotPass__conatiner}>
-                            <a href="" className={styles.forgotPass__link}>Forgot Password?</a>
-                        </div>
-                    </div>
 
-                    <button type="submit" className={styles.login__button}>Log In</button>
-                </form>
-                <div className={styles.signUp__container}>
-                    <p className={styles.signUp__text}> Need an account?</p>
-                    <a href={ROUTES.SignUp} className={styles.signup__link}>Sign Up</a>
+                        <div class="form-outline mb-4">
+                            <input type="email" name='uemail1' class="form-control" onChange={(event) => yajas(event)}/>
+                            <label class="form-label" for="registerEmail">Email</label>
+                        </div>
+
+
+                        <div class="form-outline mb-4">
+                            <input type="password" name='upass1' class="form-control" onChange={(event) => yajas(event)}/>
+                            <label class="form-label" for="registerPassword">Password</label>
+                        </div>
+                        <p style={{color:"red",textAlign:"center"}}>{signerr}</p>
+                        <div class="form-check d-flex justify-content-center mb-4">
+                            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                                aria-describedby="registerCheckHelpText" />
+                            <label class="form-check-label" for="registerCheck">
+                                I have read and agree to the terms
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary text-dark btn-block mb-3" onClick={(event) => handleSubmit1(event)}>Sign Up</button>
+                    </form>
                 </div>
             </div>
         </div>

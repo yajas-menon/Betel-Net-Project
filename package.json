@@ -23,6 +23,7 @@
   "homepage": "https://github.com/CatalystsReachOut/Event-Management-Application#readme",
   "dependencies": {
     "firebase": "^9.14.0",
+    "mongosh": "^1.6.1",
     "react-dropzone": "^14.2.3"
   }
 }

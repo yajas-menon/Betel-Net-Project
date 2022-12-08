@@ -1,16 +1,134 @@
-.x{
-    width: 100%;
+* {
+    margin: 0;
+    padding: 0;
 }
-.y{
-    font-family: 'Mochiy Pop One', sans-serif;
-    font-size: 1.8rem;
+
+body {
+    font-family: 'Poppins', sans-serif;
 }
-@media screen and (max-width:600px) {
-    .x{
-    display: block;
+
+.wrapper {
+    width: 1170px;
+    margin: auto;
+}
+
+header {
+    height: 133vh;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+}
+
+.menu {
+    float: right;
+    list-style: none;
+    margin-top: 30px;
+}
+
+.menu li {
+    display: inline-block;
+}
+.menu li a {
+    color: #fbfbfb;
+    text-decoration: none;
+    padding: 1px 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.menu li a:hover {
+    background: whitesmoke;
+    color: #333;
+}
+
+.logo {
+    float: left;
+}
+
+.logo img {
+    width: 30%;
+    padding: 0 0;
+}
+
+.banner-text {
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    margin: 20% 30%;
+    text-align: center;
+}
+
+.banner-text h1 {
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 60px;
+}
+
+.banner-text p {
+    font-family: cursive;;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fbfbfb;
+}
+
+.banner-text h1 span {
+    color: darkorange;
+}
+
+.banner-text a {
+    border: 1px solid #fff;
+    padding: 10px 25px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-top: 20px;
+    display: inline-block;
+    color: #fbfbfb;
+}
+
+.banner-text a:hover {
+    background: #fff;
+    color: Black;
+}
+
+/*resposive*/
+
+@media (max-width:600px) {
+    .wrapper {
+        width: 100%;
     }
-    .z{
-        display:grid;
-        width: 40% ;
+
+    .logo {
+        float: none;
+        width: 50%;
+        text-align: center;
+        margin: auto;
+    }
+
+    .menu {
+        float: none;
+        margin-top: 0;
+    }
+
+    .menu li a {
+        padding: 5px;
+        font-size: 11px;
+    }
+
+    .menu {
+        text-align: center;
+    }
+
+    .banner-text {
+        width: 100%;
+        height: auto;
+        margin: 15% 0;
+    }
+
+    .banner-text h1 {
+        font-size: 30px;
     }
 }

@@ -5,7 +5,7 @@ import cors from "cors"
 const app=express()
 app.use(cors());
 dotenv.config();
-import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser" 
 import bodyParser from 'body-parser'
 //cookies and filemiddleware
 app.use(cookieParser())

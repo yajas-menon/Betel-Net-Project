@@ -14,15 +14,13 @@ function AddEvent() {
 
     const [details, setDetails] = useState(
         {
-            event: "",
-            date: "",
-            description: "",
-            venue: "",
-            speakers: [],
-            strength: 0,
-            contact : 0,
-            instagram : "",
-            linkedIn: "" 
+            Name: "",
+            Salary: "",
+            designation: "",
+            SSN: "",
+            Gender:"",
+            Marketing: "",
+            Experience : 0,
         }
     )
 

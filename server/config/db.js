@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/test"
+const MONGO_URL = process.env.MONGO_URL || "mongodb+srv://Akhil:20169361@cluster0.i3ssyql.mongodb.net/test"
 // console.log(MONGO_URL)
 
 // Connect Database

@@ -1,24 +1,34 @@
 import React from 'react'
-import Logo from '../Logo/Logo'
+import { Link } from 'react-router-dom';
+import pic from '../../assets/images/pic.jpeg'
+import './Navbar.css';
 
-const styles = {
-  container: "flex flex-row items-center justify-between w-full shadow-xl h-[12vh] px-[1rem] ",
-  logo: "",
-  links: "flex items-end justify-baseline h-full",
-  link : "pl-[1rem] text-[1.5rem]"
-}
-
-
-function Navbar() {
+const Navbar = () => {
+    let a=localStorage.getItem('login')
   return (
-    <nav className={styles.container}>
-        <Logo classes={styles.logo}/>
-        <div className={styles.links}>
-          <a href="" className={styles.link}>Home</a>
-          <a href="" className={styles.link}>Events</a>
-          <a href="" className={styles.link}>Contact</a>
+    <div><header>
+    <div class="wrapper">
+        <div class="logo">
+            <Link to="/Dashboard"><img src={pic} alt="" /></Link> 
         </div>
-    </nav>
+        <ul class="menu">
+            <li><Link to="/Dashboard">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/Products">Products</Link></li>
+
+            <li><Link to="/contactUs">Contact</Link></li>
+            {
+                a ?  <li><Link to="/contactUs">User Queries</Link></li>:null
+            }
+        </ul>
+    </div>
+    <div class="banner-text">
+        <h1>Lorem<span>ipsum</span></h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla est nobis tempore molestiae voluptatibus
+            repellendus minus rerum quos ex nam voluptates, unde ratione quod quibusdam.</p>
+        <Link to="/Login">Sign In</Link>
+    </div>
+</header></div>
   )
 }
 

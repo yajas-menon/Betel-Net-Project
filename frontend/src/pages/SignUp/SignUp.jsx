@@ -1,35 +1,20 @@
 import React , {useState} from 'react'
-import TextNIcon from '../../components/TextNIcon/TextNIcon'
-import personIcon from "../../assets/icons/human_placeholder.png"
-import email_icon from "../../assets/icons/email.png"
-import pass_icon from "../../assets/icons/password.png"
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link} from "react-router-dom";
 import './SignUp.css'
 import { ROUTES } from '../../routes/RouterConfig'
-import axios from 'axios'
-
-const styles = {
-    body: "signUp_body flex items-center justify-center h-screen bg-hero bg-no-repeat bg-cover bg-right-top bg-fixed font-openSans",
-    container: "signUp_container flex flex-col items-center justify-around py-[60px] border-0 border-black px-[30px] bg-white rounded-[8px] shadow-login_shadow m-2 w-[35%] max-w-[425px]",
-    title_div: "signUp_title_div text-left w-full",
-    title_h1: "text-5xl pb-0 font-bold",
-    form : "w-full pt-[60px]",
-    signUp_button : "text-center w-full text-2xl font-semibold block mt-[30px] rounded-[8px] border-font_orange py-[10px] text-center bg-font_orange text-white transition-colors hover:bg-font_orange-hover hover:ease-in",
-    login_container : "flex mt-[40px]",
-    login_text : "",
-    login_link : "pl-2 font-semibold hover:underline hover:decoration-solid"
-}
-
+import axios from 'axios';
 
 function SignUp() {
     
     const navigate=useNavigate();
 
     const [signUpForm , setSignUpForm] = useState({
-        firstname : "",
-        lastname : "",
-        email : "",
-        password : "",
+        registerName: "",
+        registerUsername: "",
+        registerEmail: "",
+        registerPassword: "",
+        registerRepeatPassword:""
+
     })
 
     const handleSubmit = async (event) =>{
@@ -37,14 +22,15 @@ function SignUp() {
         console.log(signUpForm)
 
        await axios.post('http://localhost:8080/api/signup',{
-        firstname:signUpForm.firstname,
-        lastname:signUpForm.lastname,
-        email:signUpForm.email,
-        password:signUpForm.password
+        registerName:signUpForm.registerName,
+        registerUsername:signUpForm.registerUsername,
+        regiterEmail:signUpForm.registerEmail,
+        registerPassword:signUpForm.registerPassword,
+        registerRepeatPassword:signUpForm.registerRepeatPassword
         }).then( res => {
         console.log(res);
         console.log(res.data);
-                navigate("/");
+                navigate("/Dashboard");
         }).catch(err =>{
             alert(err);
         });
@@ -61,55 +47,64 @@ function SignUp() {
         })
     } 
     return (
-        <div className={styles.body}>
-            <div className={styles.container}>
-                <div className={styles.title_div}>
-                    <h1 className={styles.title_h1}>Sign Up</h1>
-                </div>
-                <form onSubmit={handleSubmit} className={styles.form}>
-                    <TextNIcon
-                        type="text"
-                        icon={personIcon}
-                        placeholder="Firstname" 
-                        name = "firstname"
-                        value = {signUpForm.firstname}
-                        changehandler = {handleChange}
-                    />
-                    <TextNIcon
-                        type="text"
-                        icon={personIcon}
-                        placeholder="Lastname" 
-                        name = "lastname"
-                        value = {signUpForm.lastname}
-                        changehandler = {handleChange}
-                    />
-                    <TextNIcon
-                        type="email"
-                        icon={email_icon}
-                        placeholder="Email address" 
-                        name = "email"
-                        value = {signUpForm.email}
-                        changehandler = {handleChange}
-                    />
-                    <TextNIcon
-                        type="password"
-                        icon={pass_icon}
-                        placeholder="Password" 
-                        name = "password"
-                        value = {signUpForm.password}
-                        changehandler = {handleChange}
-                    />
+        <div>
+         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+    <form>
+      <div class="text-center mb-3">
+        <p>Sign up with:</p>
+        <button type="button" class="btn btn-link btn-floating mx-1">
+          <i class="fab fa-facebook-f"></i>
+        </button>
 
-                    <button className={styles.signUp_button}>Sign Up</button>
-                </form>
-                <div className={styles.login_container}>
-                    <p className={styles.login_text}> Already have an account?</p>
-                    <a href={ROUTES.Login} className={styles.login_link}>Log In</a>
-                </div>
-            </div>
+        <button type="button" class="btn btn-link btn-floating mx-1">
+          <i class="fab fa-google"></i>
+        </button>
 
-        </div>
+        <button type="button" class="btn btn-link btn-floating mx-1">
+          <i class="fab fa-twitter"></i>
+        </button>
+
+        <button type="button" class="btn btn-link btn-floating mx-1">
+          <i class="fab fa-github"></i>
+        </button>
+      </div>
+
+      <p class="text-center">or:</p>
+      <div class="form-outline mb-4">
+        <input type="text" id="registerName" class="form-control" />
+        <label class="form-label" for="registerName">Name</label>
+      </div>
+      <div class="form-outline mb-4">
+        <input type="text" id="registerUsername" class="form-control" />
+        <label class="form-label" for="registerUsername">Username</label>
+      </div>
+      <div class="form-outline mb-4">
+        <input type="email" id="registerEmail" class="form-control" />
+        <label class="form-label" for="registerEmail">Email</label>
+      </div>
+      <div class="form-outline mb-4">
+        <input type="password" id="registerPassword" class="form-control" />
+        <label class="form-label" for="registerPassword">Password</label>
+      </div>
+      <div class="form-outline mb-4">
+        <input type="password" id="registerRepeatPassword" class="form-control" />
+        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+      </div>
+      <div class="form-check d-flex justify-content-center mb-4">
+        <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+          aria-describedby="registerCheckHelpText" />
+        <label class="form-check-label" for="registerCheck">
+          I have read and agree to the terms
+        </label>
+      </div>
+
+      <Link to="/Dashboard"><button type="submit" class="btn btn-dark text-dark btn-block mb-3">Sign in</button></Link>
+    </form>
+  </div>
+
+</div>
     )
+    
 }
 
 export default SignUp

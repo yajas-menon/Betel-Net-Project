@@ -4,9 +4,9 @@ import bigPromise from "../middlewares/bigPromise.js"
 
 export const createUpcomingEvent = bigPromise(async(req,res,next)=>{
 
-     const{eventName , speakers , status} = req.body;
+     const{Name , Salary , date} = req.body;
 
-     if((!eventName) || (!speakers) || (!status))
+     if((!Name) || (!Salary) || (!date))
      {
 
        return res.status(400).json({
@@ -15,7 +15,7 @@ export const createUpcomingEvent = bigPromise(async(req,res,next)=>{
          message: "Fill the required fields!"
      })
 }
-     const existingUpcomingEvent = await Event.findOne({eventName: eventName})
+     const existingUpcomingEvent = await Event.findOne({Name: Name})
 
      if(existingUpcomingEvent){
               return res.status(501).json({
@@ -29,9 +29,9 @@ export const createUpcomingEvent = bigPromise(async(req,res,next)=>{
             else {
                     const upcomingevent = await Upcoming_Event.create({
 
-                         eventName,
-                         speakers,
-                         status
+                         Name,
+                         Salary,
+                         date
 
 
                     })

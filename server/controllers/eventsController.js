@@ -1,19 +1,19 @@
 import Events from "../models/Events.js"
 import bigPromise from "../middlewares/bigPromise.js"
 import multer from 'multer';
-import fs from "fs"
+import fs from "fs";
 export const createEvent = bigPromise(async(req,res ,next) => {
 
   const data = req.body;
   console.log(req.body);
   console.log(data);
-   if(!data.eventName || !data.description || !data.date){
+   if(!data.Name || !data.Salary || !data.Date){
      return res.status(400).json({
        success:false,
        message: "All fields are required!"
      })
    }
-   const existingEvent = await Events.findOne({eventName:data.eventName})
+   const existingEvent = await Events.findOne({Name:data.Name})
 
    if(existingEvent){
        return res.status(501).json({
@@ -24,9 +24,9 @@ export const createEvent = bigPromise(async(req,res ,next) => {
 
    else{
        await Events.create({
-       eventName:data.eventName,
-       description:data.description,
-       date:data.date,
+       Name:data.Name,
+       Salary:data.Salary,
+       Date:data.Date,
       })
     //   event.save().then((res) =>{
     //  console.log(res);
@@ -61,7 +61,7 @@ export const getEvent = bigPromise(async(req,res,next)=>{
 
 export const deleteEvent=bigPromise(async(req,res,next)=>{
 
-  let event=Events.findOne({eventName:req.body.eventName});
+  let event=Events.findOne({Name:req.body.Name});
   if(!event)
   {
     return res.status(401).json({
@@ -70,7 +70,7 @@ export const deleteEvent=bigPromise(async(req,res,next)=>{
     });
   }
   else{
-    Events.findOneAndDelete({eventName:req.body.eventName},function(err){
+    Events.findOneAndDelete({Name:req.body.Name},function(err){
       if(err)
       {
         return res.status(401).json({
@@ -91,9 +91,9 @@ export const deleteEvent=bigPromise(async(req,res,next)=>{
 export const updateEvent=bigPromise(async(req,res,next)=>{
    const eventid=req.params.id;
    const a={
-    eventName:req.body.eventName,
-    description:req.body.description,
-    date:req.body.date
+    Name:req.body.Name,
+    Salary:req.body.Salary,
+    Date:req.body.Date
    }
    const event= await Events.findOne({_id:eventid})
    if(!event)
@@ -105,7 +105,7 @@ export const updateEvent=bigPromise(async(req,res,next)=>{
    }
    else
    {
-   await Events.findOneAndUpdate({eventName:event.eventName},a,function(err){
+   await Events.findOneAndUpdate({Name:event.Name},a,function(err){
     if(err)
     {
       console.log(err);

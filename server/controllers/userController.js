@@ -5,26 +5,35 @@ import { mailHelper } from "../utils/mailHelper.js";
 import crypto from "crypto";
 // Making Promise
 import bigPromise from "../middlewares/bigPromise.js"
+import Products from "../../frontend/src/pages/Products/Products.jsx";
 
 export const createUser = bigPromise(async(req,res,next)=>{
-
-    const {firstname,lastname,email,password}=req.body;
+    const {name,email,password}=req.body;
     console.log(req.body);
-    if((!firstname) || (!lastname) || (!email) || (!password)){
+    if((!name) || (!email) || (!password)){
         return res.status(400).json({
             success:false,
             message:"All fields are required!"
         })
     }
+    const existingUser = await User.findOne({
+        email:email
+    }).catch(err => {
+        console.log(err);
+    })
+    if(existingUser){
+        return res.status(501).json({
+            success:false,
+            message:"You Have been already registered !", 
+        })
+    }
 
     const user=await User.create({
-        firstname,
-        lastname,
+        name,
         email,
         password
     })
-
-    return res.status(201).json({
+    return res.status(200).json({
         success:true,
         message:"User Created Successfully !",
         data:user
@@ -36,6 +45,7 @@ export const createUser = bigPromise(async(req,res,next)=>{
     console.log(req.body);
     if(!email || !password){
         return res.status(400).json({
+            success:false,
             message: "Please enter all the details !"
         })
     }
@@ -46,7 +56,7 @@ export const createUser = bigPromise(async(req,res,next)=>{
     })
     if(!existingUser){
         return res.status(501).json({
-            success:true,
+            success:false,
             message:"Invalid User !", 
         })
     }
@@ -68,55 +78,15 @@ export const createUser = bigPromise(async(req,res,next)=>{
 
    })
 
-   export const logout=bigPromise(async(req,res,next)=>{
-    res.cookie('token',null,{
-        expires:new Date(Date.now()),
-        httpOnly:true
-    })
-    
-    res.status(200).json({
+   export const getProducts=bigPromise(async(req,res,next) =>{
+    const products=Products.find();
+    return res.status(200).json({
         success:true,
-        message:"loggedOut Successfully"
-    })
-})
-
-export const forgotPassword= bigPromise(async(req,res,next)=>{
-   const {email} =req.body;
-   const user = await User.findOne({email});
-   if(!user)
-   {
-    return res.status(400).json({
-    success:"false",
-    message:"No the user is not registered"
+        message:"Successfully Sent the products Details",
+        data:products
     });
-   }
-   const forgotToken=await user.getForgotPasswordToken();
-   await user.save({validateBeforeSave:false});
+   })   
 
-   const myUrl=`${req.protocol}://${req.get('host')}/api/password/reset/${forgotToken}`
-
-   const message=`copy paste this link in your urls and hit enter \n\n ${myUrl}`
-
-   try {
-       await mailHelper({
-           email:user.email,
-           subject:"Project Dashboard - Password Reset Email",
-           message:message
-       })
-       res.status(200).json({
-           success:true,
-           message:"Email Sent Successfully!"
-       })
-   } catch (error) {
-       user.forgotPasswordToken=undefined,
-       user.forgotPasswordExpiry=undefined,
-       await user.save({validateBeforeSave:false})
-
-       return res.status(500).json({
-           error:error.message
-        })
-   }
-});
 
 
 export const getLoggedinuserdetails= bigPromise(async(req,res,next)=>{
@@ -181,3 +151,31 @@ res.status(200).json({
     user
 })
 });
+
+
+export const addQueries=bigPromise(async(req,res,next)=>{
+    const user=req.body;
+    console.log(req.body);
+    const a=await User.findOne({email:user.email});
+    if(!a)
+    {
+        return res.status(401).json({
+            success:false,
+            message:"Invalid Username"
+        });
+    }
+    else{
+            const user2= await User.updateOne({_id:a._id},{$push:{reviews:req.body.msg}})
+            if(!user2){
+                return res.status(401).json({
+                    success:false,
+                    message:"Updation Failed"
+                });
+            }
+        return res.status(200).json({
+            success:true,
+            message:"Successfully Added Your Review",
+            data:a
+        });
+    }
+})

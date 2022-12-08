@@ -1,103 +1,40 @@
 import React from 'react'
-import pic from "../../assets/images/card.png"
-import {card} from "../../components/Card/Card"
-import Card from "../../components/Card/Card"
-import { Select, Option } from "@material-tailwind/react";
-import  "./Dashboard.css"
-import { useState,useEffect } from 'react'
-import { Menu } from '@headlessui/react'
-import axios from "axios"
-const Dashboard= () => {
-  const abc=[
-    {
-      label:"Hi",value:"Hi"
-    }
-  ]
-  const [old,setOld] = useState();
-  const click2 =(item) =>{
-    setOld(item);
-  }
-  const [new1,setNew] = useState();
-  const click1 = (item) =>{
-    setNew(item);
-  }
-  
-  const [month,setMonth] = useState();
-  const click3 = (item) =>{
-    setMonth(item);
-  }
-  const [year,setYear] = useState();
-  const click4=(item) =>{
-    setYear(item);
-    console.log(item);
-  }
+import Footer from '../../components/Footer/Footer'
+import Navbar from '../../components/Navbar/Navbar'
+import { Link } from 'react-router-dom';
+import pic from '../../assets/images/pic.jpeg';
+import './Dashboard.css';
 
-  const [eventData,setEventData] = useState([]);
-  
-  const shreyas = async () =>{
-    
-    await axios.get('http://localhost:8080/api/event/getEvent').then(res =>{
-      console.log(res);
-      console.log(res.data);
-      setEventData(res.data.data);
-    }).catch(err=>{
-     alert(err);
-    })
-  }
-  useEffect(() => {
-    shreyas()
-  },[]);
-   return (
-    <div className=' w-100 font-openSans'>
-    <div className='grid lg:grid-cols-3 sm:grid-cols-3 grid-cols-1 x shadow-2xl items-center'>
-    <div className='hover:place-items-center mx-12'>
-    <h3 className='y text-orange-600 font-extrabold text-center'>CLUB</h3>
-    </div>
-    <div class="flex h-24 items-center justify-center ">
-    <div class="flex border-2 z rounded-3xl">
-        <input type="text" className="px-4 z py-2 w-80 rounded-3xl shadow-2xl" placeholder="Search events ..." />
-        <button class="flex items-center justify-center px-4 border-l">
-            <svg class="w-6 h-6 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24">
-                <path
-                    d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
-            </svg>
-        </button>
-    </div>
-    </div>
-    <div className='flex justify-center'>
-    <Menu as="div" className="relative">
-    <Menu.Button className="px-4 py-2 rounded bg-blue-600 text-white ...">Filter</Menu.Button>
-    <Menu.Items className="absolute mt-1 right-0">
-      <Menu.Item>
-        {({ active }) => (
-          <a className={`${active && 'bg-blue-500 text-white'} ...`}>
-            Account settings
-          </a>
-        )}
-      </Menu.Item>
-      <Menu.Item>
-        {({ active }) => (
-          <a className={`${active && 'bg-blue-500 text-white'} ...`} >
-            Documentation
-          </a>
-        )}
-      </Menu.Item>
-      <Menu.Item disabled>
-        <span className="opacity-75 ...">Invite a friend (coming soon!)</span>
-      </Menu.Item>
-    </Menu.Items>
-  </Menu>
-    </div>
-</div>
+const Dashboard = () => {
 
-    <div className='container py-[60px] m-auto grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5'>
-    {eventData.map((i,key) => (
-      <Card data={i}/>
-     )
-     )}
+  let a=localStorage.getItem('login')
+
+  return (
+    <div>
+      <header>
+    <div class="wrapper">
+        <div class="logo">
+            <Link to="/Dashboard"><img src={pic} alt="" /></Link> 
+        </div>
+        <ul class="menu">
+            <li><Link to="/Dashboard">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/Products">Products</Link></li>
+            <li><Link to="/contactUs">Contact</Link></li>
+            {
+                a ?  <li><Link to="/Queries">User Queries</Link></li>:null
+            }
+        </ul>
     </div>
+    <div class="banner-text">
+        <h1>Lorem<span>ipsum</span></h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla est nobis tempore molestiae voluptatibus
+            repellendus minus rerum quos ex nam voluptates, unde ratione quod quibusdam.</p>
     </div>
+</header>
+<Footer/>
+      </div>
   )
 }
-export default Dashboard;
+
+export default Dashboard

@@ -1,19 +1,21 @@
 import React from 'react'
-import pic from "../../assets/images/bg1.png"
+// import pic from "../../assets/images/bg1.png"
 import "./Card.css"
 
-const shreyas = () =>{
+const yajas = () =>{
 
 }
 
 const Card= ({data}) => {
   return (
-    <div className='s justify-center items-center mx-14 w-100 h-96 my-8 font-openSans cursor-pointer'>
+    <div className='s justify-center items-center font-openSans cursor-pointer'>
     <div className='relative'>
     <div className='absolute top-0 left-0 px-6 py-4'>
     </div>
     </div>
-    <h3 className='c mx-9 my-3 font-openSans text-2xl'>{data?.eventName}</h3>
+    <h1 className=' font-openSans text-2xl'>Name-{data?.Name}</h1>
+    <h2 className=' font-openSans '>Salary-{data?.Salary}</h2>
+    <h3 className=' font-openSans '>Date-{data?.Date}</h3>
     <div className='mx-6 a text-orange-600'>
      {data?.description}
      <br></br>
