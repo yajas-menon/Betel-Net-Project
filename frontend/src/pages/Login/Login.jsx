@@ -26,6 +26,12 @@ function Login() {
             console.log(res);
             console.log(res.data);
             setLogin(true);
+            if(inputs.uemail=='admin@gmail.com'){
+                localStorage.setItem('login','admin');
+            }
+            else{
+                localStorage.setItem('login','user');
+            }
             navigate("/Dashboard");
         }).catch(err => {
             console.log(err.response.data.message);
@@ -44,11 +50,12 @@ function Login() {
         console.log(res);
         console.log(res.data);
         setSignup(true);
+        
         if(initialValues.uemail1=='admin@gmail.com'){
-            localStorage.setItem('login',true);
+            localStorage.setItem('login','admin');
         }
         else{
-            localStorage.setItem('login',false);
+            localStorage.setItem('login','user');
         }
         navigate("/Dashboard");
         }).catch(err =>{

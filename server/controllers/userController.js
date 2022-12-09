@@ -1,11 +1,11 @@
 // Import Model
 import User from "../models/User.js"
+import Product from "../models/Proudcts123.js";
 import { cookieToken } from "../utils/cookieToken.js";
 import { mailHelper } from "../utils/mailHelper.js";
 import crypto from "crypto";
 // Making Promise
 import bigPromise from "../middlewares/bigPromise.js"
-import Products from "../../frontend/src/pages/Products/Products.jsx";
 
 export const createUser = bigPromise(async(req,res,next)=>{
     const {name,email,password}=req.body;
@@ -78,15 +78,14 @@ export const createUser = bigPromise(async(req,res,next)=>{
 
    })
 
-//    export const getProducts=bigPromise(async(req,res,next) =>{
-//     const products=Products.find();
-//     return res.status(200).json({
-//         success:true,
-//         message:"Successfully Sent the products Details",
-//         data:products
-//     });
-//    })   
-
+   export const getProducts=bigPromise(async(req,res,next) =>{
+    const products=await Product.find({});
+    return res.status(200).json({
+        success:true,
+        message:"Successfully Sent the products Details",
+        data:products
+    });
+   })
 
 
 export const getLoggedinuserdetails= bigPromise(async(req,res,next)=>{
@@ -137,6 +136,7 @@ export const updateUserdetails=bigPromise(async(req,res,next)=>{
 
 export const adminallUsers=bigPromise(async(req,res,next)=>{
 const users=await User.find();
+console.log(users);
 res.status(200).json({
 success:true,
 users
@@ -155,7 +155,7 @@ res.status(200).json({
 
 export const addQueries=bigPromise(async(req,res,next)=>{
     const user=req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const a=await User.findOne({email:user.email});
     if(!a)
     {
@@ -165,17 +165,18 @@ export const addQueries=bigPromise(async(req,res,next)=>{
         });
     }
     else{
-            const user2= await User.updateOne({_id:a._id},{$push:{reviews:req.body.msg}})
+            const user2= await User.updateOne({_id:a._id},{$push:{queries:req.body.msg}})
             if(!user2){
                 return res.status(401).json({
                     success:false,
                     message:"Updation Failed"
                 });
             }
+            const user3=await User.findOne({email:user.email})
         return res.status(200).json({
             success:true,
             message:"Successfully Added Your Review",
-            data:a
+            data:user3
         });
     }
 })

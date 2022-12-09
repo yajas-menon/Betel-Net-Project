@@ -14,7 +14,8 @@ import pic8 from '../../assets/images/pic8.jpeg'
 import Footer from '../../components/Footer/Footer';
 
 const Products1 = () => {
-    const shreyas = (value) =>{
+    const a=localStorage.getItem('login');
+    const shreyas = (value) =>{ 
     localStorage.setItem('product',value);
     }
     return (
@@ -24,22 +25,23 @@ const Products1 = () => {
                     <a href="index.html"><img src={pic} alt="" /></a>
                 </div>
                 <ul class="menu">
-                    <li><Link to="/">Home</Link></li>
+                    {
+                        a ? <li><Link to="/Dashboard">Home</Link></li>:<li><Link to="/">Home</Link></li>
+                    }
                     <li><Link to="/about">About</Link></li>
                     <li><Link to="/Products">Products</Link></li>
 
                     <li><Link to="/contactUs">Contact</Link></li>
                 </ul>
             </div>
-
             <h1 className='text'>Our Products</h1>
             <div class="container abc">
                 <div class="box">
                     <img src={pic1} />
                     <div class="image__overlay image__overlay--primary">
-                        <div class="image__title">Jadi Api</div>
+                        <div class="image__title">JadiApi</div>
                         <p class="image__description">
-                            <Link to="/pic1"><button class="button1" value="Jadi Api" onClick={(e) =>shreyas(e.target.value)}>View</button></Link>
+                            <Link to="/pic1"><button class="button1" value="JadiApi" onClick={(e) =>shreyas(e.target.value)}>View</button></Link>
                         </p>
                     </div>
                 </div>
@@ -48,7 +50,7 @@ const Products1 = () => {
                     <div class="image__overlay image__overlay--primary">
                         <div class="image__title">Bhinnarangi cutting</div>
                         <p class="image__description">
-                            <a href="/pic2"><button class="button1" value="Bhinnarangi cutting" onClick={(e) =>shreyas(e.target.value)}>View</button></a>
+                            <a href="/pic2"><button class="button1" value="Bhinnarangi Cutting (Holu)" onClick={(e) =>shreyas(e.target.value)}>View</button></a>
                         </p>
                     </div>
                 </div>
@@ -103,9 +105,9 @@ const Products1 = () => {
                 <div class="box1">
                     <img src={pic8} />
                     <div class="image__overlay image__overlay--primary">
-                        <div class="image__title">Dapapi</div>
+                        <div class="image__title">Dhapapi</div>
                         <p class="image__description">
-                            <a href="/pic8"><button class="button1" value="Dapapi" onClick={(e) =>shreyas(e.target.value)}>View</button></a>
+                            <a href="/pic8"><button class="button1" value="Dhapapi" onClick={(e) =>shreyas(e.target.value)}>View</button></a>
                         </p>
                     </div>
                 </div>

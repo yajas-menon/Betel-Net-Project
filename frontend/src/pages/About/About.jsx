@@ -36,25 +36,34 @@ const About = () => {
             <div class="team_img">
               <img src={quality} alt="Team_image"/>
             </div>
-            <h3>Stringent Quality Measures</h3>
-            <p class="role">Quality assurance</p>
-            <p>We deliver the best quality products to our clients as we follow stringent quality measures from the initial stages of procurement of raw materials. We also have a quality department, where our entire range is tested on counts of purity, shelf life and flavor.</p>
+            <h3>About Company</h3>
+            <p class="role">Company</p>
+            <p>Shree Gopalakrishna Trading Company, founded in 1970, is an Areca Nut Trading Company based out of Yellapur, Karnataka. With customers across the country.
+
+                Our business principles are based on trust and quality assurance to cater to the needs of our customers. 
+                Being a Family run generational business with over fifty years of experience in the trade, we have understood and mastered the requirements of our buyers. All our shipments are made to order, with thorough quality testing and screening performed throughout the entire process, from collection to delivery.
+                </p>
           </div>
           <div class="team_member">
             <div class="team_img">
               <img src={client} alt="Team_image"/>
             </div>
-            <h3>Clientele</h3>
-            <p class="role">Client comms</p>
-            <p>We have built a good number of customers since our inception. Our clients are very happy and have recommended us to other people as well. We are widely appreciated amongst our clientele all over in India.
+            <h3>Collection</h3>
+            <p class="role">collection</p>
+            <p>We source our products from the  Agricultural Produce & Livestock Market Committee (APMC), where farmers from nearby areas bring their produce for auction.
+              After careful examination and verification based on our criteria, we choose the finest nuts and place an order based on our inventory requirements.
             </p></div>
           <div class="team_member">
             <div class="team_img">
               <img src={support} alt="Team_image"/>
             </div>
-            <h3>Why Prefer Us?</h3>
-            <p class="role">Support </p>
-            <p>Our client base has widened since our establishment because we bring forth 100% pure products. Also, we work in accordance with the ethical business norms & standards as well as follow client-centered approach. We also ensure timely delivery of even the urgent & bulk orders.</p>
+            <h3>Processing</h3>
+            <p class="role">Processing</p>
+            <p>After getting the nuts from the market, We start with our processing techniques.
+               The nuts are sorted based on size and variety with the help of machines in our godown. Any unwanted substances or defective nuts get eliminated in this process.
+               The cleaned, sorted nuts are coated with a natural coloring made from areca nut water. This process is critical for extending the shelf life of the nuts while maintaining their quality.
+               The prepared nuts are now cut as per customer specifications.
+               Finally, the nuts are packaged into gunny bags (up to 50 kg) and shipped to their final destination</p>
           </div>
         </div>
       </div>

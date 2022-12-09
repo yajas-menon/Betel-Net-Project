@@ -12,13 +12,14 @@ export const ROUTES = {
     AddEvent : '/AddEvent',
     contactUs:'/contactUs',
     Products:'/Products',
-    pic1:'/pic1',
-    pic2:'/pic2',
-    pic3:'/pic3',
-    pic4:'/pic4',
-    pic5:'/pic5',
-    pic6:'/pic6',
-    pic7:'/pic7',
-    pic8:'/pic8'
+    Pic1:'/pic1',
+    Pic2:'/pic2',
+    Pic3:'/pic3',
+    Pic4:'/pic4',
+    Pic5:'/pic5',
+    Pic6:'/pic6',
+    Pic7:'/pic7',
+    Pic8:'/pic8',
+    Queries:'/queries'
 
 }

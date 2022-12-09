@@ -7,7 +7,8 @@ import Navbar from '../../components/Navbar/Navbar'
 const Home = () => {
 
     const navigate = useNavigate()
-
+    localStorage.removeItem('login');
+    localStorage.setItem('loggedin','false');
     const changeDir = (dir) =>{
         navigate(dir)
     }
