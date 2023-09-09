@@ -1,2 +1,3 @@
 # Event-Management-Application
-Event management Application built with MERN stack
+
+Betenel Nut Business Application Created using MERN stack .
